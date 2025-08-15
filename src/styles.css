@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Accent layout helpers */
+.content {
+  background: linear-gradient(180deg, color-mix(in oklch, var(--mat-sys-primary) 6%, transparent) 0%, transparent 20%);
+  border-radius: 8px;
+}
+
+.mat-toolbar.topbar {
+  background: var(--mat-sys-primary);
+  color: var(--mat-sys-on-primary);
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
