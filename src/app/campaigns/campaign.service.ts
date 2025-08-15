@@ -10,6 +10,7 @@ export interface Campaign {
   startDate: string; // ISO date
   endDate: string;   // ISO date
   channels: string[];
+  url?: string;
 }
 
 const STORAGE_KEY = 'marketing_campaigns';
