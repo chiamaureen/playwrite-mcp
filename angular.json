@@ -1,0 +1,59 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "projects": {
+    "front-end": {
+      "projectType": "application",
+      "root": "",
+      "sourceRoot": "src",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "outputPath": "dist/front-end/browser",
+            "browser": "src/main.ts",
+            "tsConfig": "tsconfig.app.json",
+            "assets": [
+              "src/favicon.ico"
+            ],
+            "styles": [
+              "src/styles.css",
+              "src/custom-theme.scss"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true
+            },
+            "development": {
+              "optimization": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "options": {
+            "buildTarget": "front-end:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "front-end:build:production"
+            },
+            "development": {
+              "buildTarget": "front-end:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": "4b900d34-2b2c-414b-9e8d-537395adbaff"
+  },
+  
+}
+
+

@@ -12,3 +12,4 @@ pnpm-debug.log*
 *.swp
 .env
 .env.local
+
