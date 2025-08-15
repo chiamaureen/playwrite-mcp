@@ -16,12 +16,21 @@ export const routes: Routes = [
         loadComponent: () => import('./campaigns/campaign-list.component').then(m => m.CampaignListComponent)
       },
       {
+        path: 'campaigns/approvals',
+        loadComponent: () => import('./campaigns/campaign-approvals.component').then(m => m.CampaignApprovalsComponent)
+      },
+      {
         path: 'campaigns/new',
         loadComponent: () => import('./campaigns/campaign-new.component').then(m => m.CampaignNewComponent)
       },
       {
         path: 'campaigns/:id/edit',
         loadComponent: () => import('./campaigns/campaign-edit.component').then(m => m.CampaignEditComponent)
+      }
+      ,
+      {
+        path: 'campaigns/:id/detail',
+        loadComponent: () => import('./campaigns/campaign-detail.component').then(m => m.CampaignDetailComponent)
       }
     ]
   },

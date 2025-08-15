@@ -60,7 +60,7 @@ export const YYYY_MM_DD_FORMATS = {
         <mat-select [(ngModel)]="model.status" name="status" appHalfwidth>
           <mat-option value="draft">draft</mat-option>
           <mat-option value="active">active</mat-option>
-          <mat-option value="paused">paused</mat-option>
+          <mat-option value="approving">approving</mat-option>
           <mat-option value="ended">ended</mat-option>
         </mat-select>
       </mat-form-field>

@@ -1,6 +1,13 @@
 import { Injectable, Signal, computed, signal } from '@angular/core';
 
-export type CampaignStatus = 'draft' | 'active' | 'paused' | 'ended';
+export type CampaignStatus = 'draft' | 'active' | 'approving' | 'ended';
+export type CampaignApprovalStatus = 'pending' | 'approved' | 'rejected';
+export interface ApprovalRecord {
+  status: CampaignApprovalStatus;
+  reason?: string;
+  at: string; // ISO timestamp
+  by?: string;
+}
 
 export interface Campaign {
   id: string;
@@ -11,6 +18,8 @@ export interface Campaign {
   endDate: string;   // ISO date
   channels: string[];
   url?: string;
+  approval?: CampaignApprovalStatus;
+  approvalHistory?: ApprovalRecord[];
 }
 
 const STORAGE_KEY = 'marketing_campaigns';
@@ -74,6 +83,10 @@ export class CampaignService {
         startDate: new Date().toISOString().slice(0, 10),
         endDate: new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10),
         channels: ['facebook', 'google', 'email'],
+        approval: 'approved',
+        approvalHistory: [
+          { status: 'approved', reason: '行銷方案符合預算', at: new Date().toISOString() }
+        ]
       },
       {
         id: crypto.randomUUID(),
@@ -83,15 +96,21 @@ export class CampaignService {
         startDate: new Date(Date.now() + 10 * 86400000).toISOString().slice(0, 10),
         endDate: new Date(Date.now() + 20 * 86400000).toISOString().slice(0, 10),
         channels: ['instagram', 'line'],
+        approval: 'pending',
+        approvalHistory: []
       },
       {
         id: crypto.randomUUID(),
         name: '開學季 校園方案',
-        status: 'paused',
+        status: 'active',
         budget: 200000,
         startDate: new Date(Date.now() - 30 * 86400000).toISOString().slice(0, 10),
         endDate: new Date(Date.now() + 10 * 86400000).toISOString().slice(0, 10),
         channels: ['google', 'youtube'],
+        approval: 'approved',
+        approvalHistory: [
+          { status: 'approved', reason: '合作檔期確認', at: new Date().toISOString() }
+        ]
       },
     ];
     try {

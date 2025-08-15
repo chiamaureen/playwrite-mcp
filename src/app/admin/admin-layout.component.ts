@@ -26,6 +26,10 @@ import { MatInputModule } from '@angular/material/input';
             <mat-icon aria-hidden="true" matListItemIcon>campaign</mat-icon>
             <span>行銷活動</span>
           </a>
+          <a mat-list-item routerLink="/admin/campaigns/approvals">
+            <mat-icon aria-hidden="true" matListItemIcon>how_to_vote</mat-icon>
+            <span>活動審批</span>
+          </a>
         </mat-nav-list>
       </mat-sidenav>
       <mat-sidenav-content>
