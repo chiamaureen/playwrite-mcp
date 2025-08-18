@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,9 +12,9 @@ import { Campaign, CampaignService } from './campaign.service';
 @Component({
   standalone: true,
   selector: 'app-campaign-detail',
-  imports: [CommonModule, RouterLink, FormsModule, MatCardModule, MatChipsModule, MatButtonModule, MatFormFieldModule, MatInputModule],
+  imports: [CommonModule, FormsModule, MatCardModule, MatChipsModule, MatButtonModule, MatFormFieldModule, MatInputModule],
   template: `
-    <a mat-button routerLink="/admin/campaigns/approvals">← 返回審批列表</a>
+    <button mat-button (click)="goBack()">← 返回列表</button>
     <mat-card *ngIf="campaign" class="card">
       <mat-card-title>活動詳情</mat-card-title>
       <mat-card-content>
@@ -109,6 +109,10 @@ export class CampaignDetailComponent {
 
   private reload() {
     if (this.id) this.campaign = this.campaigns.getById(this.id);
+  }
+
+  goBack() {
+    history.back();
   }
 }
 

@@ -53,7 +53,8 @@ import { CampaignService, Campaign } from './campaign.service';
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> 動作 </th>
         <td mat-cell *matCellDef="let c">
-          <button mat-button color="primary" [routerLink]="'/admin/campaigns/' + c.id + '/edit'" [disabled]="(c.approval || 'pending') === 'approved'">編輯</button>
+          <button *ngIf="(c.approval || 'pending') !== 'approved'" mat-button color="primary" [routerLink]="'/admin/campaigns/' + c.id + '/edit'">編輯</button>
+          <button *ngIf="(c.approval || 'pending') === 'approved'" mat-button color="primary" [routerLink]="'/admin/campaigns/' + c.id + '/detail'">查看</button>
           <button mat-button color="warn" (click)="remove(c.id)">刪除</button>
         </td>
       </ng-container>

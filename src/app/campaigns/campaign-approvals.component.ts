@@ -25,18 +25,18 @@ import { MatInputModule } from '@angular/material/input';
 
     <table mat-table [dataSource]="rows" class="mat-elevation-z1 full">
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> 名稱 </th>
-        <td mat-cell *matCellDef="let c"> {{ c.name }} </td>
+        <th mat-header-cell *matHeaderCellDef class="nowrap"> 名稱 </th>
+        <td mat-cell *matCellDef="let c" class="nowrap"> {{ c.name }} </td>
       </ng-container>
 
       <ng-container matColumnDef="budget">
-        <th mat-header-cell *matHeaderCellDef> 預算 </th>
-        <td mat-cell *matCellDef="let c"> $ {{ c.budget | number }} </td>
+        <th mat-header-cell *matHeaderCellDef class="nowrap"> 預算 </th>
+        <td mat-cell *matCellDef="let c" class="nowrap"> $ {{ c.budget | number }} </td>
       </ng-container>
 
       <ng-container matColumnDef="period">
-        <th mat-header-cell *matHeaderCellDef> 期間 </th>
-        <td mat-cell *matCellDef="let c"> {{ c.startDate }} ~ {{ c.endDate }} </td>
+        <th mat-header-cell *matHeaderCellDef class="nowrap"> 期間 </th>
+        <td mat-cell *matCellDef="let c" class="nowrap"> {{ c.startDate }} ~ {{ c.endDate }} </td>
       </ng-container>
 
       <ng-container matColumnDef="approval">
@@ -46,19 +46,19 @@ import { MatInputModule } from '@angular/material/input';
             <mat-chip [ngClass]="'chip--' + (c.approval || 'pending')">{{ c.approval || 'pending' }}</mat-chip>
           </mat-chip-set>
           <div class="history" *ngIf="(c.approvalHistory?.length || 0) > 0">
-            <div class="history-item" *ngFor="let h of c.approvalHistory">
+            <!-- <div class="history-item" *ngFor="let h of c.approvalHistory">
               <span class="date">{{ h.at | date:'yyyy-MM-dd HH:mm' }}</span>
               <span class="status">{{ h.status }}</span>
               <span class="by" *ngIf="h.by">by {{ h.by }}</span>
               <span class="reason" *ngIf="h.reason">- {{ h.reason }}</span>
-            </div>
+            </div> -->
           </div>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> 審批 </th>
-        <td mat-cell *matCellDef="let c">
+        <td mat-cell *matCellDef="let c" class="actions-col">
           <button mat-raised-button color="primary" (click)="openDetail(c.id)">{{ (c.approval || 'pending') === 'approved' ? '查看' : '審批' }}</button>
         </td>
       </ng-container>
@@ -71,6 +71,9 @@ import { MatInputModule } from '@angular/material/input';
     .head { display:flex; align-items:center; justify-content:space-between; margin-bottom: 12px; gap: 8px; }
     .filters { display:flex; gap: 8px; }
     .full { width: 100%; }
+    .nowrap { white-space: nowrap; }
+    .actions-col { min-width: 240px; white-space: nowrap; }
+    .actions-col button { white-space: nowrap; }
     .chip--pending { background:#e8b184; color:#fff; }
     .chip--approved { background:#a2dba5; color:#fff; }
     .chip--rejected { background:#e88b8b; color:#fff; }

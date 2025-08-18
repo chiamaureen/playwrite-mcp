@@ -63,8 +63,8 @@ import { MatInputModule } from '@angular/material/input';
       :host ::ng-deep .sidenav .mat-mdc-list-item .mat-icon { color: #fff; }
       :host ::ng-deep .sidenav a.mat-mdc-list-item { color: #fff; }
       .brand-bar { font-weight: 600; background: transparent; color: #fff; }
-      .topbar { background: transparent; color: #fff; }
-      .topbar .mat-icon { color: #fff; }
+      .topbar { background: transparent; }
+      // .topbar .mat-icon { color: #fff; }
       .brand { font-weight: 600; }
       .spacer { flex: 1 1 auto; }
       .search { width: 320px; margin-right: 8px; }
