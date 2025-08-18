@@ -36,11 +36,11 @@ import { Campaign, CampaignService } from './campaign.service';
       <mat-card-content>
         <mat-form-field appearance="outline" class="reason">
           <mat-label>審批原因（退回必填）</mat-label>
-          <input matInput [(ngModel)]="reason" placeholder="請輸入原因" />
+          <input matInput [(ngModel)]="reason" placeholder="請輸入原因" [disabled]="isApproved" />
         </mat-form-field>
         <div class="actions">
-          <button mat-raised-button color="primary" (click)="approve()">通過</button>
-          <button mat-button color="warn" (click)="reject()">退回</button>
+          <button mat-raised-button color="primary" (click)="approve()" [disabled]="isApproved">通過</button>
+          <button mat-button color="warn" (click)="reject()" [disabled]="isApproved">退回</button>
         </div>
       </mat-card-content>
     </mat-card>
@@ -63,7 +63,11 @@ import { Campaign, CampaignService } from './campaign.service';
     </mat-card>
   `,
   styles: [`
-    .card { margin-bottom: 12px; }
+    .card { margin: 20px 0; padding: 12px 24px; background-color: #fff;
+      .mat-mdc-card-title {
+        margin: 0 0 12px 0;
+      }
+    }
     .row { display:flex; gap:8px; margin: 6px 0; align-items: center; }
     .label { width: 96px; color:#555; }
     .reason { width: 360px; max-width: 100%; }
@@ -78,6 +82,7 @@ export class CampaignDetailComponent {
   campaign: Campaign | undefined;
   id: string | null = null;
   reason = '';
+  get isApproved() { return (this.campaign?.approval || 'pending') === 'approved'; }
 
   constructor(private readonly route: ActivatedRoute, private readonly router: Router, private readonly campaigns: CampaignService) {
     this.id = this.route.snapshot.paramMap.get('id');

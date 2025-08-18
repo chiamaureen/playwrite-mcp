@@ -112,6 +112,19 @@ export class CampaignService {
           { status: 'approved', reason: '合作檔期確認', at: new Date().toISOString() }
         ]
       },
+      {
+        id: crypto.randomUUID(),
+        name: '母親節 回饋活動',
+        status: 'draft',
+        budget: 150000,
+        startDate: new Date(Date.now() + 5 * 86400000).toISOString().slice(0, 10),
+        endDate: new Date(Date.now() + 12 * 86400000).toISOString().slice(0, 10),
+        channels: ['facebook', 'email'],
+        approval: 'rejected',
+        approvalHistory: [
+          { status: 'rejected', reason: '預算超標，請下修至 10 萬以內', at: new Date().toISOString(), by: 'admin' }
+        ]
+      },
     ];
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(seed));

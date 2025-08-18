@@ -15,9 +15,15 @@ import { MatInputModule } from '@angular/material/input';
   template: `
     <div class="head">
       <h2>活動審批</h2>
+      <div class="filters">
+        <button mat-stroked-button [color]="filter==='all' ? 'primary' : undefined" (click)="setFilter('all')">全部</button>
+        <button mat-stroked-button [color]="filter==='pending' ? 'primary' : undefined" (click)="setFilter('pending')">待審</button>
+        <button mat-stroked-button [color]="filter==='approved' ? 'primary' : undefined" (click)="setFilter('approved')">通過</button>
+        <button mat-stroked-button [color]="filter==='rejected' ? 'primary' : undefined" (click)="setFilter('rejected')">退回</button>
+      </div>
     </div>
 
-    <table mat-table [dataSource]="pending" class="mat-elevation-z1 full">
+    <table mat-table [dataSource]="rows" class="mat-elevation-z1 full">
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> 名稱 </th>
         <td mat-cell *matCellDef="let c"> {{ c.name }} </td>
@@ -53,7 +59,7 @@ import { MatInputModule } from '@angular/material/input';
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> 審批 </th>
         <td mat-cell *matCellDef="let c">
-          <button mat-raised-button color="primary" (click)="openDetail(c.id)">審批</button>
+          <button mat-raised-button color="primary" (click)="openDetail(c.id)">{{ (c.approval || 'pending') === 'approved' ? '查看' : '審批' }}</button>
         </td>
       </ng-container>
 
@@ -62,11 +68,12 @@ import { MatInputModule } from '@angular/material/input';
     </table>
   `,
   styles: [`
-    .head { display:flex; align-items:center; justify-content:space-between; margin-bottom: 12px; }
+    .head { display:flex; align-items:center; justify-content:space-between; margin-bottom: 12px; gap: 8px; }
+    .filters { display:flex; gap: 8px; }
     .full { width: 100%; }
-    .chip--pending { background:#ef6c00; color:#fff; }
-    .chip--approved { background:#2e7d32; color:#fff; }
-    .chip--rejected { background:#b71c1c; color:#fff; }
+    .chip--pending { background:#e8b184; color:#fff; }
+    .chip--approved { background:#a2dba5; color:#fff; }
+    .chip--rejected { background:#e88b8b; color:#fff; }
     .reason { width: 320px; margin-right: 8px; }
     .history { margin-top: 6px; font-size: 12px; color: #555; }
     .history-item { display: flex; gap: 6px; align-items: center; }
@@ -74,8 +81,9 @@ import { MatInputModule } from '@angular/material/input';
   `],
 })
 export class CampaignApprovalsComponent {
-  pending: Campaign[] = [];
+  rows: Campaign[] = [];
   displayedColumns = ['name', 'budget', 'period', 'approval', 'actions'];
+  filter: 'all' | 'pending' | 'approved' | 'rejected' = 'all';
 
   constructor(private readonly campaigns: CampaignService) {
     this.refresh();
@@ -87,7 +95,17 @@ export class CampaignApprovalsComponent {
   }
 
   private refresh() {
-    this.pending = this.campaigns.list().filter(c => (c.approval || 'pending') === 'pending');
+    const all = this.campaigns.list();
+    if (this.filter === 'all') {
+      this.rows = all;
+    } else {
+      this.rows = all.filter(c => (c.approval || 'pending') === this.filter);
+    }
+  }
+
+  setFilter(next: 'all' | 'pending' | 'approved' | 'rejected') {
+    this.filter = next;
+    this.refresh();
   }
 }
 
