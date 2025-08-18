@@ -93,7 +93,7 @@ export class CampaignDetailComponent {
     if (!this.id) return;
     const current = this.campaigns.getById(this.id);
     const history = current?.approvalHistory ?? [];
-    this.campaigns.update(this.id, { approval: 'approved', approvalHistory: [{ status: 'approved', at: new Date().toISOString(), reason: this.reason.trim(), by: 'admin' }, ...history] });
+    this.campaigns.update(this.id, { approval: 'approved', status: 'active', approvalHistory: [{ status: 'approved', at: new Date().toISOString(), reason: this.reason.trim(), by: 'admin' }, ...history] });
     this.reload();
   }
 

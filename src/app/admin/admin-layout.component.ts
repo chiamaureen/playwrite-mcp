@@ -16,7 +16,7 @@ import { MatInputModule } from '@angular/material/input';
   template: `
     <mat-sidenav-container class="layout">
       <mat-sidenav mode="side" opened class="sidenav">
-        <mat-toolbar color="primary" class="brand-bar">行銷平台後台</mat-toolbar>
+        <mat-toolbar class="brand-bar">行銷平台後台</mat-toolbar>
         <mat-nav-list>
           <a mat-list-item routerLink="/admin/dashboard">
             <mat-icon aria-hidden="true" matListItemIcon>dashboard</mat-icon>
@@ -58,13 +58,13 @@ import { MatInputModule } from '@angular/material/input';
     `
       .layout { height: 100vh; }
       .sidenav { width: 260px; }
-      .sidenav { background: #3f51b5; color: #fff; }
+      .sidenav { background: #3f51b5; color: #fff; border-radius: 0; }
       :host ::ng-deep .sidenav .mat-mdc-list-item .mdc-list-item__primary-text { color: #fff; }
       :host ::ng-deep .sidenav .mat-mdc-list-item .mat-icon { color: #fff; }
       :host ::ng-deep .sidenav a.mat-mdc-list-item { color: #fff; }
-      .brand-bar { font-weight: 600; }
-      .topbar { background: transparent; color: #3f51b5; }
-      .topbar .mat-icon { color: #3f51b5; }
+      .brand-bar { font-weight: 600; background: transparent; color: #fff; }
+      .topbar { background: transparent; color: #fff; }
+      .topbar .mat-icon { color: #fff; }
       .brand { font-weight: 600; }
       .spacer { flex: 1 1 auto; }
       .search { width: 320px; margin-right: 8px; }
