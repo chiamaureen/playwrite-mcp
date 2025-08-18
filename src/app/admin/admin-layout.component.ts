@@ -33,7 +33,7 @@ import { MatInputModule } from '@angular/material/input';
         </mat-nav-list>
       </mat-sidenav>
       <mat-sidenav-content>
-        <mat-toolbar color="primary" class="topbar">
+        <mat-toolbar class="topbar">
           <span class="brand">E‑Commerce Admin</span>
           <span class="spacer"></span>
           <!-- <mat-form-field appearance="outline" class="search">
@@ -41,7 +41,7 @@ import { MatInputModule } from '@angular/material/input';
             <input matInput placeholder="搜尋..." />
           </mat-form-field> -->
           <button mat-icon-button aria-label="notifications">
-            <mat-icon style="color: #fff;">notifications</mat-icon>
+            <mat-icon>notifications</mat-icon>
           </button>
           <a mat-raised-button color="primary" routerLink="/admin/campaigns/new">
             <mat-icon>add</mat-icon>
@@ -58,10 +58,13 @@ import { MatInputModule } from '@angular/material/input';
     `
       .layout { height: 100vh; }
       .sidenav { width: 260px; }
+      .sidenav { background: #3f51b5; color: #fff; }
+      :host ::ng-deep .sidenav .mat-mdc-list-item .mdc-list-item__primary-text { color: #fff; }
+      :host ::ng-deep .sidenav .mat-mdc-list-item .mat-icon { color: #fff; }
+      :host ::ng-deep .sidenav a.mat-mdc-list-item { color: #fff; }
       .brand-bar { font-weight: 600; }
-      .topbar { 
-        background: linear-gradient(90deg, var(--mat-sys-primary) 0%, color-mix(in oklch, var(--mat-sys-primary) 70%, #ffffff) 100%);
-      }
+      .topbar { background: transparent; color: #3f51b5; }
+      .topbar .mat-icon { color: #3f51b5; }
       .brand { font-weight: 600; }
       .spacer { flex: 1 1 auto; }
       .search { width: 320px; margin-right: 8px; }
