@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
-import { MatChipsModule } from '@angular/material/chips';
 import { Campaign, CampaignApprovalStatus, CampaignService } from './campaign.service';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -11,7 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 @Component({
   standalone: true,
   selector: 'app-campaign-approvals',
-  imports: [CommonModule, FormsModule, MatTableModule, MatButtonModule, MatChipsModule, MatFormFieldModule, MatInputModule],
+  imports: [CommonModule, FormsModule, MatTableModule, MatButtonModule, MatFormFieldModule, MatInputModule],
   template: `
     <div class="head">
       <h2>活動審批</h2>
@@ -42,9 +41,7 @@ import { MatInputModule } from '@angular/material/input';
       <ng-container matColumnDef="approval">
         <th mat-header-cell *matHeaderCellDef> 狀態 </th>
         <td mat-cell *matCellDef="let c">
-          <mat-chip-set>
-            <mat-chip [ngClass]="'chip--' + (c.approval || 'pending')">{{ c.approval || 'pending' }}</mat-chip>
-          </mat-chip-set>
+          <span class="chip" [ngClass]="'chip--' + (c.approval || 'pending')">{{ c.approval || 'pending' }}</span>
           <div class="history" *ngIf="(c.approvalHistory?.length || 0) > 0">
             <!-- <div class="history-item" *ngFor="let h of c.approvalHistory">
               <span class="date">{{ h.at | date:'yyyy-MM-dd HH:mm' }}</span>
@@ -74,6 +71,7 @@ import { MatInputModule } from '@angular/material/input';
     .nowrap { white-space: nowrap; }
     .actions-col { min-width: 240px; white-space: nowrap; }
     .actions-col button { white-space: nowrap; }
+    .chip { display:inline-flex; align-items:center; height:24px; line-height:24px; padding:0 8px; border-radius:16px; font-size:12px; font-weight:500; }
     .chip--pending { background:#e8b184; color:#fff; }
     .chip--approved { background:#a2dba5; color:#fff; }
     .chip--rejected { background:#e88b8b; color:#fff; }

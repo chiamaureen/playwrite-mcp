@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
-import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -12,7 +11,7 @@ import { Campaign, CampaignService } from './campaign.service';
 @Component({
   standalone: true,
   selector: 'app-campaign-detail',
-  imports: [CommonModule, FormsModule, MatCardModule, MatChipsModule, MatButtonModule, MatFormFieldModule, MatInputModule],
+  imports: [CommonModule, FormsModule, MatCardModule, MatButtonModule, MatFormFieldModule, MatInputModule],
   template: `
     <button mat-button (click)="goBack()">← 返回列表</button>
     <mat-card *ngIf="campaign" class="card">
@@ -20,9 +19,7 @@ import { Campaign, CampaignService } from './campaign.service';
       <mat-card-content>
         <div class="row"><span class="label">名稱：</span><span>{{ campaign.name }}</span></div>
         <div class="row"><span class="label">狀態：</span>
-          <mat-chip-set>
-            <mat-chip appearance="outlined">{{ campaign.status }}</mat-chip>
-          </mat-chip-set>
+          <span class="chip chip--outline">{{ campaign.status }}</span>
         </div>
         <div class="row"><span class="label">預算：</span><span>$ {{ campaign.budget | number }}</span></div>
         <div class="row"><span class="label">期間：</span><span>{{ campaign.startDate }} ~ {{ campaign.endDate }}</span></div>
@@ -70,6 +67,8 @@ import { Campaign, CampaignService } from './campaign.service';
     }
     .row { display:flex; gap:8px; margin: 6px 0; align-items: center; }
     .label { width: 96px; color:#555; }
+    .chip { display:inline-flex; align-items:center; height:24px; line-height:24px; padding:0 8px; border-radius:16px; font-size:12px; font-weight:500; }
+    .chip--outline { border:1px solid currentColor; background: transparent; }
     .reason { width: 360px; max-width: 100%; }
     .actions { display:flex; gap:8px; margin-top: 8px; }
     .history { display:flex; flex-direction:column; gap:6px; }

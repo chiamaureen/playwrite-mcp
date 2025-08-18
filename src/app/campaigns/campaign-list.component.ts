@@ -3,14 +3,13 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
-import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { CampaignService, Campaign } from './campaign.service';
 
 @Component({
   standalone: true,
   selector: 'app-campaign-list',
-  imports: [CommonModule, RouterLink, MatTableModule, MatButtonModule, MatChipsModule, MatIconModule],
+  imports: [CommonModule, RouterLink, MatTableModule, MatButtonModule, MatIconModule],
   template: `
     <div class="head">
       <h2>行銷活動</h2>
@@ -29,9 +28,9 @@ import { CampaignService, Campaign } from './campaign.service';
       <ng-container matColumnDef="status">
         <th mat-header-cell *matHeaderCellDef> 狀態 </th>
         <td mat-cell *matCellDef="let c">
-          <mat-chip-set>
-            <mat-chip appearance="outlined">{{ c.status }}</mat-chip>
-          </mat-chip-set>
+          <span class="chip chip--outline" [ngStyle]="{ color: statusColor(c), borderColor: statusColor(c) }">
+            {{ getStatusLabel(c) }}
+          </span>
         </td>
       </ng-container>
 
@@ -67,6 +66,8 @@ import { CampaignService, Campaign } from './campaign.service';
     `
       .head { display:flex; align-items:center; justify-content:space-between; margin-bottom: 12px; }
       .full { width: 100%; }
+      .chip { display:inline-flex; align-items:center; height:24px; line-height:24px; padding:0 8px; border-radius:16px; font-size:12px; font-weight:500; }
+      .chip--outline { border:1px solid currentColor; background: transparent; }
     `,
   ],
 })
@@ -81,6 +82,28 @@ export class CampaignListComponent {
   remove(id: string) {
     this.campaignsService.delete(id);
     this.campaigns = this.campaignsService.list();
+  }
+
+  getStatusLabel(c: Campaign): string {
+    return (c.approval || 'pending') === 'rejected' ? 'rejected' : c.status;
+  }
+
+  statusColor(c: Campaign): string {
+    const label = this.getStatusLabel(c);
+    switch (label) {
+      case 'active':
+        return '#2e7d32';
+      case 'draft':
+        return '#616161';
+      case 'approving':
+        return '#ef6c00';
+      case 'ended':
+        return '#b71c1c';
+      case 'rejected':
+        return '#d32f2f';
+      default:
+        return '#424242';
+    }
   }
 }
 
